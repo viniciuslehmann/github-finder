@@ -4,13 +4,13 @@ import Repos from '../repos/Repos';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-const User = ({user, loading, getUser, getRepos, repos, match}) => {
+const User = ({user, loading, getUser, getUserRepos, repos, match}) => {
 
-  componentDidMount() {
-    this.props.getUser(match.params.login);
-    this.props.getUserRepos(match.params.login);
-  }
-
+  useEffect(() => {
+    getUser(match.params.login);
+    getUserRepos(match.params.login);
+    //eslint-disable-next-line
+  }, []);
    
     const {
       name,
@@ -28,7 +28,6 @@ const User = ({user, loading, getUser, getRepos, repos, match}) => {
       hireable,
     } = user;
 
-    console.log(avatar_url);
 
 
     if (loading) return <Spinner />;
